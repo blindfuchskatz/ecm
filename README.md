@@ -1,2 +1,6 @@
-# ecm
-Electricity consumption monitor
+# Electricity Consumption Monitor (ECM)
+---
+**INFO**
+
+README is under construction
+---
