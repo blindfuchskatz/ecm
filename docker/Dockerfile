@@ -8,3 +8,5 @@ RUN rustup component add clippy
 RUN cargo install cargo-tarpaulin
 RUN rustup component add rls rust-analysis rust-src
 RUN rustup component add rustfmt
+RUN rustup target add armv7-unknown-linux-gnueabihf
+
