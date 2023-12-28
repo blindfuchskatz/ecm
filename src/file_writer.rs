@@ -1,5 +1,6 @@
 use std::fs::OpenOptions;
 use std::io::{self, Write};
+use std::path::Path;
 
 pub struct FileWriter {
     file_path: String,
@@ -25,5 +26,24 @@ impl FileWriter {
         file.write_all(content.as_bytes())?;
 
         Ok(())
+    }
+
+    pub fn parent_path_exist(&self, file_path: &str) -> bool {
+        // Create a Path object from the file path
+        let path = Path::new(file_path);
+
+        // Extract the directory part of the path
+        let directory_path = path.parent();
+
+        // Check if the directory path exists
+        if let Some(directory) = directory_path {
+            if directory.exists() {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }

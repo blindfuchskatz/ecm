@@ -8,7 +8,7 @@ const QOS: &[i32] = &[1, 1];
 use text_colorizer::*;
 
 fn print_usage() {
-    eprintln!("Usage: ecm <meter data path> <url mqtt broker> <topic_1> <topic_2> <topic_n>")
+    eprintln!("Usage: ecm <meter data path> <url mqtt broker> <topic>")
 }
 
 #[derive(Debug)]
@@ -20,10 +20,15 @@ struct Arguments {
 
 fn pars_args() -> Arguments {
     let args: Vec<String> = env::args().skip(1).collect();
-    if args.len() < 3 {
+    if args.len() == 1 && (args[0] == "-h" || args[0] == "--help") {
+        print_usage();
+        std::process::exit(0);
+    }
+
+    if args.len() != 3 {
         print_usage();
         eprintln!(
-            "{} wrong number of arguments: expect at least 3, got {}.",
+            "{} wrong number of arguments: expect 3, got {}.",
             "Error:".red().bold(),
             args.len()
         );
@@ -42,6 +47,18 @@ fn main() {
     env_logger::init();
 
     let args = pars_args();
+
+    let file_writer = file_writer::FileWriter::new(&args.meter_data_file);
+
+    if file_writer.parent_path_exist(&args.meter_data_file) == false {
+        eprintln!(
+            "{} parent path of {} does not exist.",
+            "Error:".red().bold(),
+            &args.meter_data_file
+        );
+        process::exit(1);
+    }
+
     println!("Connecting to the MQTT server at '{}'...", args.host);
     println!("Subscribe to topics '{:?}'...", args.topics);
 
@@ -91,8 +108,6 @@ fn main() {
         // disconnect. Therefore, when you kill this app (with a ^C or
         // whatever) the server will get an unexpected drop and then
         // should emit the LWT message.
-
-        let file_writer = file_writer::FileWriter::new(&args.meter_data_file);
 
         while let Some(msg_opt) = strm.next().await {
             if let Some(msg) = msg_opt {

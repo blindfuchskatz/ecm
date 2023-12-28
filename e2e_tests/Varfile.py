@@ -1,0 +1,15 @@
+TEST_DIR = "/tmp/ecm_test/"
+METER_DATA_FILE = "meter_data.txt"
+MQTT_TOPIC = "meter_data"
+IP = "127.0.0.1"
+MQTT_STDOUT_FILE = TEST_DIR + "mqtt_stdout.txt"
+ECM_STDOUT_FILE = TEST_DIR + "ecm_stdout.txt"
+ECM_SERVICE = "/ecm_sdk/target/debug/main"
+METER_DATA_1 = "{\"Time\":\"time\",\"ENERGY\":{\"Total\":2.0,\"Total_t1:2.0\"}}"
+METER_DATA_2 = "{\"Time\":\"time\",\"ENERGY\":{\"Total\":5.0,\"Total_t1:2.4\"}}"
+HELP_TEXT = "Usage: ecm <meter data path> <url mqtt broker> <topic>\n"
+HELP_TEXT_AND_ERROR_MSG = """Usage: ecm <meter data path> <url mqtt broker> <topic>
+Error: wrong number of arguments: expect 3, got 4.
+"""
+INVALID_PATH_MSG = "Error: parent path of /tmp/invalid/dir.txt does not exist.\n"
+INVALID_URL_MSG = "General failure"
