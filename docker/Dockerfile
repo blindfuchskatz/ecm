@@ -2,6 +2,7 @@ FROM rust:1.73.0
 
 RUN apt-get update && apt-get install -y && apt-get clean
 RUN apt install libssl-dev build-essential cmake -y && apt-get clean
+RUN apt install gcc-arm-linux-gnueabihf -y && apt-get clean
 
 #Rust packages
 RUN cargo install cargo-watch

@@ -99,7 +99,7 @@ Start MQTT broker
     Log    MQTT broker started with pid: ${service.pid}
 
 Build ECM
-    Run Process    /ecm_sdk/run_build.sh    x86
+    Run Process    /ecm_sdk/run_build.sh    x64
     File Should Exist    ${ECM_SERVICE}
 
 Start ECM

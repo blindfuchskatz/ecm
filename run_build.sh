@@ -8,13 +8,13 @@ set -o pipefail
 
 user_input=${1:-input_missing}
 
-if [ "$user_input"  == "x86" ]; then
+if [ "$user_input"  == "x64" ]; then
     echo -e "\e[32mBuild for target architecture $user_input ... \e[0m"
     RUSTFLAGS="-D warnings" cargo build
 
-elif [ "$user_input"  == "arm" ]; then
+elif [ "$user_input"  == "armv7" ]; then
     echo -e "\e[32mBuild for target architecture $user_input ... \e[0m"
-    RUSTFLAGS="-D warnings" cargo build
+    RUSTFLAGS="-D warnings" cargo build --target=armv7-unknown-linux-gnueabihf
 
 elif [ "$user_input"  == "clean" ]; then
     echo -e "\e[32mClean\e[0m"
